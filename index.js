@@ -3,13 +3,13 @@
 import express from "express";
 import axios from "axios";
 import pg from "pg";
-import { credentials } from "./credential";
+import { credentials } from "./credential.js";
 
 //PROVIDE THE LOGIN INFORMATION.
 const db = new pg.Client({
     user: "postgres",
     host: "localhost",
-    database: "Permalist",
+    database: "BookList",
     password: credentials,
     port: 5432,
   });
@@ -18,17 +18,30 @@ const db = new pg.Client({
   const app = express();
   const port = 3000;
   
-  app.use(bodyParser.urlencoded({ extended: true }));
+  
+  let books = [];
 
   //leting it know it hsould use the style file on the public folder.
   app.use(express.static("public"));
 
-
+  db.connect()
+  .then(() => console.log('Conected to the database'))
+  .catch(err => console.error('Could not conect to the database', err.stack));
 
   //allowing the user to view the index.ejs once it has loaded.
   app.get("/", async (req, res) => {
-
-    res.render("index.ejs");
+    try {
+        const result = await db.query("SELECT * FROM booklist ORDER BY id ASC");
+        books = result.rows;
+        console.log(result.rows);
+        
+        res.render("index.ejs", {
+            bookList: books,
+        });
+    }catch (err) {
+        console.log(err);
+      }
+    
   });
 
 

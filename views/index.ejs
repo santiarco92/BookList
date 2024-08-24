@@ -3,19 +3,22 @@
     <div>
         <h1>Book Traker</h1>
         <p>Description or shor info</p> 
-        <button class="btn btn-dark" action="click">Add a book</button>
+        <button class="btn btn-dark" action="/add" method="post" name="addBook">Add a book</button>
     </div>
     
     <div class="container-lg">
-        <% for(let item of listItems){%>
+      
+        <% for(let book of bookList){%>
             <img src="" alt="">
-            <h3><%= item.bookname %></h3>
-            <h5>Author: </h5> <p><%= item.author %></p>
-            <h5>Genre:  </h5> <p><%= item.genre %></p>
-            <h5>ISBN:  </h5> <p><%= item.isbn %></p>
-            <h5>Year Read:</h5> <p><%= item.yearead %> </p>
-            <h5>Rating:  </h5> <p><%= item.rating %></p>
-            <h5>Description:  </h5> <p><%= item.description %></p>
+            <h3><%= book.bookname %></h3>
+            <h5>Author: </h5> <p><%= book.author %></p>
+            <h5>Genre:  </h5> <p><%= book.genre %></p>
+            <h5>ISBN:  </h5> <p><%= book.isbn %></p>
+            <h5>Year Read:</h5> <p><%= book.yearead %> </p>
+            <h5>Rating:  </h5> <p><%= book.rating %></p>
+            <h5>Description:  </h5> <p><%= book.description %></p>
+            <button class="btn btn-warning">Edit</button>
+            <button class="btn btn-danger">Delete</button>
         <% } %>
     </div>
 </main>
