@@ -1,3 +1,102 @@
+:root {
+    /*BACKGROUNDS*/
+    --primary-bg: #e2d1c3 ;
+    --secondary-bg: #A99C91; 
+
+    /*FONT WEIGHT*/
+    --thin: 100;
+    --extra-light: 200;
+    --light: 300;
+    --normal: 400;
+    --medium: 500;
+    --semi-bold: 600;
+    --bold: 700;
+    --extra-bold: 800;
+    --heavy:900;
+
+    /*FONT HEIGHT*/
+    --height-line: 1.8rem;
+
+    /*COLOR*/
+    --first-cl: #34302D;
+    --second-cl:#ADD1C3;
+    --third-cl:#B5C9D9;
+}
+
 body {
     font-family: "Roboto Flex";
+    background: rgb(226,209,195);
+    background: radial-gradient(circle, rgba(226,209,195,1) 29%, rgba(169,156,145,1) 100%);
+}
+
+
+.display-1 {
+    font-weight: var(--bold);
+    color: var(--first-cl);
+}
+
+h3 h5 {
+    font-weight: var(--semi-bold);
+}
+
+.btn {
+    font-weight: var(--semi-bold);
+    color: var(--first-cl);
+}
+
+.btnC, .btnEd {
+    background-color: var(--second-cl);
+    border: solid 1px var(--first-cl);
+}
+
+.btnDe {
+    background-color: var(--third-cl);
+    border: solid 1px var(--first-cl);
+}
+
+.btn:hover {
+    background-color: #504A46;
+    color: var(--primary-bg);
+}
+
+/*Header*/
+
+header div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 0px;
+    text-align: center;
+
+}
+
+
+/*MAIN*/
+
+main {
+    padding: 0px 5rem;
+}
+
+.book-cover {
+    float: left;
+    margin-right: 2rem;
+   
+}
+
+.cnt {
+    padding: 3rem;
+    overflow: auto;
+}
+
+.bookInfo {
+    overflow: hidden;
+}
+
+
+/*ADD SECTION*/
+
+.addcnt {
+    border: solid 2px black; 
+    padding: 10rem;
 }

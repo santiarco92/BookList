@@ -31,10 +31,14 @@ const db = new pg.Client({
   //allowing the user to view the index.ejs once it has loaded.
   app.get("/", async (req, res) => {
     try {
+
+      //with this line of code I can acces the datbase and share the information stored
         const result = await db.query("SELECT * FROM booklist ORDER BY id ASC");
         books = result.rows;
-        console.log(result.rows);
+
         
+        console.log(result.rows);
+      
         res.render("index.ejs", {
             bookList: books,
         });
@@ -43,6 +47,15 @@ const db = new pg.Client({
       }
     
   });
+
+
+  //Allowing the add button to take the user to the /add section.
+
+
+
+  app.get("/add", async (req,res) => {
+    res.render("add.ejs");
+  })
 
 
 
