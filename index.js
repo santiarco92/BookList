@@ -18,7 +18,7 @@ const db = new pg.Client({
   const app = express();
   const port = 3000;
   
-  
+  // created an emty aray to be filled by the database
   let books = [];
 
   //leting it know it hsould use the style file on the public folder.
@@ -47,6 +47,9 @@ const db = new pg.Client({
       }
     
   });
+
+
+
 
 
   //Allowing the add button to take the user to the /add section.
