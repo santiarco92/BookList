@@ -5,7 +5,7 @@
         <h1>ADD YOUR NEW BOOK</h1>
         <p></p>
     </div>
-    <form method="post">
+    <form method="POST">
         <div class="row">
             <div class="col-lg">
                 <label class="form-label" for="addForm">Name of the Book </label>
@@ -30,7 +30,7 @@
         <div class="row">
             <div class="col-lg">
                 <label class="form-label" for="addForm">ISBN: </label>
-                <input type="text" name="isbn">
+                <input type="text" name="isbn" required>
             </div>
         </div>
 
@@ -54,9 +54,15 @@
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description"></textarea>
             </div>
         </div>
+    <button class="btn btnC" type="submit" name="list"> Edit Book Info</button>
+    </form>
 
-        
-    <button class="btn btnC" type="submit" name="list"> Add Book</button>
+    <form action="delete">
+        <h1>Delet a Book</h1>
+        <p></p>
+        <label for=""></label>
+        <input type="text">
+        <button class="btn btnDe">Delete</button>
     </form>
 </main>
 </body>
