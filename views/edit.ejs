@@ -1,11 +1,17 @@
+
+<!-- This calls the header fromt he partials folder -->
 <%- include('partials/header.ejs'); -%>
 
 <main class="addcnt">
+     <!-- This is the header section that contains the name of the web page and a brief explenation on how it works -->
     <div class="intro">
         <h1>ADD YOUR NEW BOOK</h1>
-        <p></p>
+        <p>To accurately edit the information from the book list the ENTIRE input must be filled if a space is left blank the website will change the current value to undefined.  This side of the website checks the provided ISBN and searches for a match in the database to make the adjustments required by the user.</p>
     </div>
+
+     <!-- This form allows the user to edit a book based on the book ISBN -->
     <form method="POST">
+
         <div class="row">
             <div class="col-lg">
                 <label class="form-label" for="addForm">Name of the Book </label>
@@ -54,16 +60,11 @@
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description"></textarea>
             </div>
         </div>
-    <button class="btn btnC" type="submit" name="list"> Edit Book Info</button>
-    </form>
-
-    <form action="delete">
-        <h1>Delet a Book</h1>
-        <p></p>
-        <label for=""></label>
-        <input type="text">
-        <button class="btn btnDe">Delete</button>
+    <button id="editbtn" class="btn btnC" type="submit" name="list"> Edit Book Info</button>
     </form>
 </main>
+<footer class="py-3 my-4">
+    <p class="text-center text-body-secondary">Copyright © <%= new Date().getFullYear() %></p>
+</footer>
 </body>
 </html>

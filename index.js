@@ -1,11 +1,12 @@
 
-//IMPORT ALL DEPENDENCIES.
+//import all dependencies
 import express from "express";
 import axios from "axios";
 import pg from "pg";
 import { credentials } from "./credential.js";
 
-//PROVIDE THE LOGIN INFORMATION.
+
+//provide the login information foor pgadmin
 const db = new pg.Client({
     user: "postgres",
     host: "localhost",
@@ -22,7 +23,7 @@ const db = new pg.Client({
   
 
 
-  // created an emty aray to be filled by the database
+  // created an empty aray to be filled by the database
   let books = [];
 
 
@@ -31,7 +32,7 @@ const db = new pg.Client({
   app.use(express.static("public"));
 
 
-
+//conects to the data base
   db.connect()
   .then(() => console.log('Conected to the database'))
   .catch(err => console.error('Could not conect to the database', err.stack));
@@ -48,8 +49,9 @@ const db = new pg.Client({
         books = result.rows;
 
         
-        console.log(result.rows);
+        // console.log(result.rows);
       
+        //renders index.ejs as a response
         res.render("index.ejs", {
             bookList: books,
         });
@@ -111,9 +113,10 @@ app.get("/edit", async (req,res) => {
 })
 
 
-
+// allows the user to edit a existing book within the data base
 app.post("/edit", async (req,res) => {
 
+  // provide each individual variable their corresponding value
   var isbn = req.body.isbn;
   var bookName = req.body.bookName;
   var author = req.body.author;
@@ -123,9 +126,9 @@ app.post("/edit", async (req,res) => {
   var description = req.body.description;
 
 
-  console.log("this is isbn; " + isbn + " and this is the value of bookName: " + bookName);
+  // console.log("this is isbn; " + isbn + " and this is the value of bookName: " + bookName);
 
-
+// updates the information provided by the user
   try {
     await db.query("UPDATE booklist SET bookname = $1, author = $2, genre = $3, yearread = $4, rating = $5, description = $6 WHERE isbn = $7", 
       [bookName, author, genre, yearRead, rating, description, isbn ]);
@@ -134,6 +137,23 @@ app.post("/edit", async (req,res) => {
     console.log(err);
   }
 
+});
+
+
+//delets a book form the data base
+app.post("/delete", async (req, res) => {
+//captures the desires book to be deleted ISBN
+  const bookIsbn = req.body.isbn;
+
+  // console.log( "this is the value of bookIsbn: " + bookIsbn);
+
+  // sends the comand to the data base to delete the desired book
+  try {
+    await db.query("DELETE FROM booklist WHERE isbn=$1", [bookIsbn]);
+    res.redirect("/");
+  }catch (err) {
+    console.log(err);
+  }
 });
 
 

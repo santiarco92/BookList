@@ -1,98 +1,60 @@
+<!-- This calls the header fromt he partials folder -->
 <%- include('partials/header.ejs'); -%>
 
+<!-- This section contains an explanation of the website and the buttons to add a new book, delete a book, or edit a books info. -->
 <header>
-    <div>
+    <div class="headerCnt">
         <h1 class="display-1">Book Traker</h1>
-        <p>The following project allows the user to keep track of the books they have read. The books currently displayed are some of the books that I've read over the years.</p> 
-
-        <div class="formContainer">
-            <form action="/edit" method="get">
-                <button class="btn btnEd">Edit List</button>
-            </form>
-             <form action="/add" method="GET">
-                <button type="submit" class="btn btnC">Add a book</button>
-            </form>
-        </div>
-       
+        <p>The following project is an exercise from a boot camp. The purpose of this project is to use the information gained from the boot camp to create a functional website that will allow the user to have a list of the books they have read. This list should be connected to a database through Postgres, and the user should be able to add, edit, and delete information from the database from the server. </p> 
     </div>
+    <div class="formContainer">
+        <form action="/edit" method="get">
+            <button class="btn btnEd">Edit List</button>
+        </form>  
+            <form action="/add" method="GET">
+            <button type="submit" class="btn btnC">Add a book</button>
+        </form>
+    </div>
+    <h5 style="text-align: center;">To delete a book from the list please provide the book's ISBN.</h5>
+    <form action="/delete" class="frm" method="post">
+        <button class="btn btnDe">Delete</button>
+        <input placeholder="Enter ISBN to delete" required name="isbn"  type="text">
+    </form>
+    
 </header>
 <main>
-    
+    <!-- This code creates a a div containing all of the information gathered fro the server and creates one for each item within the aray -->
     <% for(let book of bookList) { %>
         <div class="cnt">
+            <!-- In this section we take the objects ISBN using book.isbn to be able to use the api provided by the bootcamp, this code allows for each objet to have its own isbn. -->
             <img src="https://covers.openlibrary.org/b/isbn/<%= book.isbn %>-M.jpg" alt="Book Cover" class="book-cover">
             <div class="bookInfo">
-                <!-- Campo de visualización del nombre del libro -->
+            
+                <!-- the following code shares information from the backend to the frontend without having to create each element with manual code. the information is passed as bookList and based on this information we are able to gathere specific information -->
                 <h3 id="title<%= book.id %>"><%= book.bookname %></h3>
-                <!-- Campo de edición del nombre del libro -->
-                <input type="text" id="inputTitle<%= book.id %>" name="bookname" value="<%= book.bookname %>" hidden>
-
-                <!-- Campo de visualización del autor -->
+              <div>
                 <h5>Author:</h5> <p id="author<%= book.id %>"><%= book.author %></p>
-                <!-- Campo de edición del autor -->
-                <input type="text" id="inputAuthor<%= book.id %>" name="author" value="<%= book.author %>" hidden>
-
-                <!-- Campo de visualización del género -->
+             
                 <h5>Genre:</h5> <p id="genre<%= book.id %>"><%= book.genre %></p>
-                <!-- Campo de edición del género -->
-                <input type="text" id="inputGenre<%= book.id %>" name="genre" value="<%= book.genre %>" hidden>
-
-                <!-- Campo de visualización del ISBN -->
+             
                 <h5>ISBN:</h5> <p id="isbn<%= book.id %>"><%= book.isbn %></p>
-                <!-- Campo de edición del ISBN -->
-                <input type="text" id="inputIsbn<%= book.id %>" name="isbn" value="<%= book.isbn %>" hidden>
-
-                <!-- Campo de visualización del año leído -->
+              
                 <h5>Year Read:</h5> <p id="yearRead<%= book.id %>"><%= book.yearread %></p>
-                <!-- Campo de edición del año leído -->
-                <input type="number" id="inputYear<%= book.id %>" name="yearread" value="<%= book.yearread %>" hidden>
-
-                <!-- Campo de visualización de la calificación -->
+             
                 <h5>Rating:</h5> <p id="rating<%= book.id %>"><%= book.rating %></p>
-                <!-- Campo de edición de la calificación -->
-                <input type="number" id="inputRating<%= book.id %>" name="rating" value="<%= book.rating %>" hidden>
 
-                <!-- Campo de visualización de la descripción -->
-                <h5>Description:</h5> <p id="description<%= book.id %>"><%= book.description %></p>
-                <!-- Campo de edición de la descripción -->
-                <textarea id="inputDescription<%= book.id %>" name="description" hidden><%= book.description %></textarea>
-                
-                <!-- Botón de Editar -->
-                <button id="edit<%= book.id %>" class="btn btnEd" onclick="handler('<%= book.id %>')">Edit</button>
-
-                <!-- Botón de Guardar cambios -->
-                <form action="/edit/<%= book.id %>" method="POST" style="display: inline;">
-                    <button id="done<%= book.id %>" type="submit" class="btn btn-success" hidden>Done</button>
-                </form>
-                
-                <!-- Botón de Borrar -->
-                <form action="/delete" method="POST" style="display: inline;">
-                    <button class="btn btnDe" name="btn<%= book.id %>" value="<%= book.id %>">Delete</button>
-                </form>
+                <h5>Description:</h5> <p class="description" id="description<%= book.id %>"><%= book.description %></p>
+              </div>               
             </div>  
         </div>
     <% } %>
-
-        <script>
-             function handler(id) {
-        const fields = ["title", "author", "genre", "isbn", "yearRead", "rating", "description"];
-        
-        // Ocultar campos de visualización y mostrar inputs de edición
-        fields.forEach(field => {
-            document.getElementById(field + id).setAttribute("hidden", true);
-            document.getElementById("input" + field.charAt(0).toUpperCase() + field.slice(1) + id).removeAttribute("hidden");
-        });
-        
-        // Ocultar botón de Edit y mostrar botón de Done
-        document.getElementById("edit" + id).setAttribute("hidden", true);
-        document.getElementById("done" + id).removeAttribute("hidden");
-    }
-        </script>
 </main>
 
-<footer>
-    
+
+<footer class="py-3 my-4">
+    <p class="text-center text-body-secondary">Copyright © <%= new Date().getFullYear() %></p>
 </footer>
+
 
 </body>
 </html>
